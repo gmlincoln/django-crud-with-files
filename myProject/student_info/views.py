@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from student_info.models import Student
 
+from django.db.models import Q
+
 # Create your views here.
 
 def home(request):
@@ -24,8 +26,27 @@ def add_student(request):
 
 def show_student(request):
     
+    query = request.GET.get('q')
+    
     data = Student.objects.all()
     
+    if query:
+        data = Student.objects.filter(
+            Q(name__icontains = query)|
+            Q(email__icontains = query)
+            )
+    
+    
+    # Order
+    order = request.GET.get('order')
+    
+    if order == 'asc':
+        data = Student.objects.order_by('name')
+        
+    elif order == 'desc':
+        data = Student.objects.order_by('-name')
+        
+        
     context = {
         "students": data
     }
