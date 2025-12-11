@@ -77,8 +77,15 @@ myProject/
    ```
 
 3. **Install required dependencies**:
+
+- Install from the included `requirements.txt` (recommended):
    ```bash
-   pip install django
+   pip install -r requirements.txt
+   ```
+
+- Or install only Pillow (used for image handling):
+   ```bash
+   pip install pillow
    ```
 
 4. **Run migrations** (if needed):
